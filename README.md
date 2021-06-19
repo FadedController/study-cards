@@ -1,6 +1,6 @@
 # Get Started
 
-First clone this repo and enter the folder by doing
+First clone this repo and enter the folder by doing:
 
 ```bash
 $ git clone https://github.com/FadedController/study-cards.git
@@ -8,13 +8,13 @@ $ git clone https://github.com/FadedController/study-cards.git
 $ cd study-cards
 ```
 
-This project uses the yarn package manager, so **if you do not have it installed, run the following command**
+This project uses the yarn package manager, so **if you do not have it installed, run the following command:**
 
 ```bash
 $ npm install --global yarn
 ```
 
-Now install the project dependencies
+Now install the project dependencies:
 
 ```bash
 $ yarn
@@ -22,21 +22,21 @@ $ yarn
 $ yarn install-client
 ```
 
-After this you are all set up.
+After this you are all set up and ready to start with Development.
 
 ## Development
 
-This project is divided in two main partitions, the React frontend and the express backend, to run them both in development mode at the same time, simply run
+This project is divided in two main partitions, the React frontend and the express backend, to run them both in development mode at the same time, simply run.
 
 ```bash
 $ yarn dev
 ```
 
-This will watch your files for changes and update both the frontend, and the backend whenever their files change
+This will watch your files for changes and update both the frontend, and the backend whenever their files change.
 
 ## Fetching to the backend
 
-To fetch data from the backend, you simply have to fetch it from the route you have set up in Express. Take this backend code as an example
+To fetch data from the backend, you simply have to fetch it from the route you have set up in Express. Take this backend code as an example.
 
 ```typescript
 // Express Backend
@@ -64,11 +64,11 @@ app.get("/api/customers", (req, res) => {
 });
 ```
 
-In this example, the /api/customers route will return the customers data, so if you wanted to use that data in the frontend, your code might look something like this
+In this example, the **_/api/customers_** route will return the customers data, so if you wanted to use that data in the frontend, your code might look something like this.
 
 ```javascript
 // Customers component
-const Customers => {
+const Customers = () => {
   const [data, setData] = useState()
 
   const fetchCustomers = async () => {
@@ -82,8 +82,13 @@ const Customers => {
     fetchCustomers()
   }, [])
 
+  // Use the data in JSX
   return (
     <div>{data}<div>
   )
 }
 ```
+
+## Questions
+
+If you have any questions, be sure to reach out to me directly and I'll be happy to explain
