@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# Get Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+First clone this repo and enter the folder by doing
 
-## Available Scripts
+```bash
+$ git clone https://github.com/FadedController/study-cards.git
+# and then
+$ cd study-cards
+```
 
-In the project directory, you can run:
+This project uses the yarn package manager, so **if you do not have it installed, run the following command**
 
-### `yarn start`
+```bash
+$ npm install --global yarn
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Now install the project dependencies
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+$ yarn
+# and then
+$ yarn install-client
+```
 
-### `yarn test`
+After this you are all set up.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Development
 
-### `yarn build`
+This project is divided in two main partitions, the React frontend and the express backend, to run them both in development mode at the same time, simply run
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+$ yarn dev
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This will watch your files for changes and update both the frontend, and the backend whenever their files change
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Fetching to the backend
 
-### `yarn eject`
+To fetch data from the backend, you simply have to fetch it from the route you have set up in Express. Take this backend code as an example
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```typescript
+// Express Backend
+const express = require("express");
+const app = express();
+const PORT = 5000;
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+// GET at http://localhost:5000/api/customers
+app.get("/api/customers", (req, res) => {
+  const customers = [
+    {
+      id: 1,
+      name: "Axel Padilla",
+    },
+    {
+      id: 2,
+      name: "John Doe",
+    },
+    {
+      id: 3,
+      name: "Steve Swanson",
+    },
+  ];
+  res.json(customers);
+});
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+In this example, the /api/customers route will return the customers data, so if you wanted to use that data in the frontend, your code might look something like this
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```javascript
+// Customers component
+const Customers => {
+  const [data, setData] = useState()
 
-## Learn More
+  const fetchCustomers = async () => {
+    fetch("/api/customers")
+      .then(res => res.json())
+      .then(data => setData(data))
+  }
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  useEffect(() => {
+    // Call the fetch function once
+    fetchCustomers()
+  }, [])
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  return (
+    <div>{data}<div>
+  )
+}
+```
