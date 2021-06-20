@@ -1,8 +1,12 @@
 import React from "react";
-import Customers from "./components/expressTest/Customers";
+import ConnectSocket from "./components/expressTest/ConnectSocket";
 
 const App: React.FC = () => {
-  return <Customers />;
+  return (
+    <>
+      <ConnectSocket />
+    </>
+  );
 };
 
 export default App;

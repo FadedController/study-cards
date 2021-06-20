@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 
 export interface Customer {
@@ -11,22 +10,15 @@ const Customers: React.FC = () => {
   const [data, setData] = useState<Customer[]>();
 
   const getData = async () => {
-    const response = await fetch("/api/customers");
-    const data = await response.json();
+    const data = await (await fetch("/api/customers")).json();
     setData(data);
   };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <div>
       <h1>Customers component</h1>
-      <ul>
-        {data &&
-          data.map((customer, idx) => <li key={idx}>{customer.name}</li>)}
-      </ul>
+      <button onClick={getData}>Load customers</button>
+      <ul>{data && data.map(({ name }, idx) => <li key={idx}>{name}</li>)}</ul>
     </div>
   );
 };
